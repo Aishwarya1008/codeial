@@ -8,8 +8,17 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const sassMiddleware = require('node-sass-middleware');
 
 const app = express();
+
+app.use(sassMiddleware({
+    src: './assests/scss',
+    dest: './assests/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
 
 app.use(express.static('./assests'));
 // app.use(cookieParser());

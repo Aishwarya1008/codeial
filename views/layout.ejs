@@ -5,11 +5,16 @@
             <%= title %>
         </title>
         <link rel="stylesheet" type="text/css" href="/css/layout.css">
+        <link rel="stylesheet" type="text/css" href="/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/css/footer.css">
+
         <%- style %>
     </head>
     <body>
         <%- include('_header'); %>
-        <%- body %>
+        <main id="main-body">
+            <%- body %>
+        </main>
         <%- include('_footer'); %>
         <%- script %>
     </body>
