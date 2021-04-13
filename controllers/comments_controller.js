@@ -15,6 +15,7 @@ module.exports.create = async function(req, res){
             });
             post.comments.push(comment._id);
             post.save();
+            req.flash('success', 'Comment Added Successfully');
             return res.redirect('/');
         }
     } catch(err){
@@ -40,6 +41,7 @@ module.exports.destroy = async function(req, res){
                     }
                 }
                 comment.remove();
+                req.flash('success', 'Comment Deleted Successfully');
                 return res.redirect('back');
             } else {
                 return res.redirect('back');

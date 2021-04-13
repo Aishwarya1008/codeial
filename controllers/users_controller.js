@@ -60,6 +60,8 @@ module.exports.create = async function(req, res){
     // console.log(data);
     try{
         if(req.body.password != req.body.confirm_password){
+            req.flash('error', 'Password and Confirm Password are not same');
+
             return res.redirect('back');
         }
         let user = await User.findOne({email: req.body.email});
@@ -67,6 +69,7 @@ module.exports.create = async function(req, res){
                 await User.create(req.body);
                 return res.redirect('/users/sign-in');
             } else {
+                req.flash('error', 'User with same email exits, try different email..!!');
                 return res.redirect('back');
             }
 
@@ -79,11 +82,13 @@ module.exports.create = async function(req, res){
 module.exports.createSession = function(req, res){
     let data = req.body;
     console.log(data);
+    req.flash('success', 'Logged in Successfully');
     return res.redirect('/');
 }
 
 module.exports.destroySession = function(req, res){
     req.logout();
+    req.flash('success', 'Logged out Successfully');
     return res.redirect('/');
 }
 
