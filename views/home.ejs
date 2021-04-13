@@ -1,45 +1,30 @@
-<h1>Home Page</h1>
+<link rel="stylesheet" type="text/css" href="/css/home.css">
+<div id="home-container">
+    <section id="feed-posts">
+        <h4>POST</h4>
+        <% if(locals.user) {%>
+            <form id="new-posts-form" action="/posts/create" method="POST">
+                <textarea name="content" id="content" rows="3" cols="30" placeholder="Type Here..." required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        <%} %>
+        
+        <div id="posts-container">
+            <ul>
+                <% for(let i of posts) { %>
+                    <%- include('_post', {i: i}); %>
+                <% } %>
+            </ul>
+        </div>
+    </section>
+    <section id="user-friends">
+        <h4>Friends</h4>
+        <% for(let u of all_users) {%>
+            <p>
+                <a href="/users/profile/<%= u.id%>"><%= u.name%></a>
+            </p>
+        <%} %>
+    </section>
 
-<section id="feed-posts">
-    <h4>POST</h4>
-    <% if(locals.user) {%>
-        <form id="new-posts-form" action="/posts/create" method="POST">
-            <textarea name="content" id="content" rows="3" cols="30" placeholder="Type Here..." required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-    <%} %>
-    
-    <div id="posts-container">
-        <ul>
-            <% for(let i of posts) { %>
-                <li>
-                    <div>
-                        <p><%= i.content%></p>
-                        <span><%= i.user.name%></span>
-                    </div>
-                    <div class="post-comments">
-                        <% if(locals.user) { %>
-                        
-                            <form action="/comments/create" method="POST">
-                                <input type="text" name="content" placeholder="Add comment.." required>
-                                <input type="hidden" name="post" value="<%= i._id %>">
-                                <button type="submit">Submit</button>
-                            </form>
-                            
-                        <% } %>
-                        <div id="comments-list">
-                            <ul>
-                                <% for(let comment of i.comments) {%>
-                                    <li>
-                                        <p><%= comment.content%></p>
-                                        <span><%= comment.user.name%></span>
-                                    </li>    
-                                <%} %>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-            <% } %>
-        </ul>
-    </div>
-</section>
+
+</div>

@@ -23,12 +23,11 @@ app.use(sassMiddleware({
 app.use(express.static('./assests'));
 // app.use(cookieParser());
 
+app.use(express.urlencoded());
+
 app.use(expressLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
-
-app.use(express.urlencoded());
-
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
