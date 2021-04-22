@@ -9,7 +9,7 @@
             </form>
         <%} %>
         
-        <div id="posts-container">
+        <div id="posts-list-container">
             <ul>
                 <% for(let i of posts) { %>
                     <%- include('_post', {i: i}); %>
@@ -28,3 +28,6 @@
 
 
 </div>
+<script src="/js/home_comments.js"></script>
+<script src="/js/home_posts.js"></script>
+
