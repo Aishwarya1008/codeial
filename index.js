@@ -23,6 +23,7 @@ app.use(sassMiddleware({
 }));
 
 app.use(express.static('./assests'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 // app.use(cookieParser());
 
 app.use(express.urlencoded());

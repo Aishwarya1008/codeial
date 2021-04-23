@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const path = require('path');
+const fs = require('fs');
 
 module.exports.profile = function(req, res){
     User.findById(req.params.id, function(err, user){
@@ -14,15 +16,38 @@ module.exports.profile = function(req, res){
 
 }
 
-module.exports.profileUpdate = function(req, res){
+module.exports.profileUpdate = async function(req, res){
     if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
-            if(err){
-                console.log('error in updating', err);
-                return;
-            }
-            return res.redirect('back');
-        });
+        try{
+
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req, res, function(err){
+                console.log(req.file);
+                if(err){
+                    console.log('Error in Multer', err);
+                    return;
+                }
+                user.name = req.body.name;
+                user.email = req.body.email;
+                if(req.file){
+                    if(user.avatar){
+                        if(fs.existsSync(path.join(__dirname, '..', user.avatar))){
+                            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+                        }
+                    }
+                    user.avatar = path.join(User.avatar_path, '/' , req.file.filename);
+                    console.log(user.avatar);
+                }
+                user.save();
+                return res.redirect('back');
+            });
+        } catch(err){
+
+            console.log('Error', err);
+            return;
+
+        }
+       
 
     } else {
         return res.status(401).send('Unathourized');
