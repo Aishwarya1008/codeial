@@ -8,6 +8,10 @@ header{
     font-family: sans-serif;
     h1{
         font-size: larger;
+        a{
+            text-decoration: none;
+            color: white;
+        }
     }
     span{
         flex-grow: 2;

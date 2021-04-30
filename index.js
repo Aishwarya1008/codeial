@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+const nodemailer = require('nodemailer');
 
 const app = express();
 

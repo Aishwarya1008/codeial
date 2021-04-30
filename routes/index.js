@@ -10,4 +10,6 @@ router.use('/comments', require('./comments'));
 
 router.use('/api', require('./api/index'));
 
+router.use('/reset_password', require('./reset_password'));
+
 module.exports = router;

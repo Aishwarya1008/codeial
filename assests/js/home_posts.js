@@ -86,4 +86,18 @@
     convertPostsToAjax();
     deletePost();
 
+
+    let likeButtons = $('.like-button');
+    for(let i = 0; i<likeButtons.length; i++){
+        likeButtons.eq(i).on('click', function(event){
+            event.preventDefault();
+            let text = $(this).text();
+            if(text == 'Like'){
+                $(this).text('Unlike');
+            } else {
+                $(this).text('Like');
+            }
+        });
+    }
+
 }
