@@ -12,5 +12,6 @@ router.use('/api', require('./api/index'));
 
 router.use('/reset_password', require('./reset_password'));
 router.use('/likes', require('./likes'));
+router.use('/friends', require('./friendship'));
 
 module.exports = router;

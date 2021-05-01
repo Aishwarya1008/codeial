@@ -17,17 +17,49 @@
             </ul>
         </div>
     </section>
-    <section id="user-friends">
-        <h4>Friends</h4>
-        <% for(let u of all_users) {%>
-            <p>
-                <a href="/users/profile/<%= u.id%>"><%= u.name%></a>
-            </p>
-        <%} %>
-    </section>
+    <div id="users-friends-container">
+
+        <% if(locals.user) {%>
+            
+            <section id="users">
+                <h4>Friends</h4>
+                <ul>
+                    <% for(let friendship of current_user.friends) {%>
+                        <li id="<%= friendship._id %>">
+                            <p>
+                                <span><%= friendship.fid.name %></span>
+                                <a class="remove-friend-button" href="/friends/remove_friend/<%= friendship.fid._id %>">X</a>
+                            </p>
+                        </li>
+                    <%} %>
+                </ul>
+                
+            </section>
+            
+            
+            
+        <%}%>
+            
+           
+
+        <section id="users">
+            <h4>Users</h4>
+            <% for(let u of all_users) {%>
+                <p>
+                    <a href="/users/profile/<%= u.id%>"><%= u.name%></a>
+                </p>
+            <%} %>
+        </section>
+
+
+    </div>
+    
 
 
 </div>
+<script src="/js/remove_friends.js"></script>
+<script src="/js/toggle_likes.js"></script>
 <script src="/js/home_comments.js"></script>
 <script src="/js/home_posts.js"></script>
+
 

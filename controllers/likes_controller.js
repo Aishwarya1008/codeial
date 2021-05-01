@@ -1,6 +1,6 @@
 const Like = require('../models/likes');
 const Post = require('../models/post');
-const User = require('../models/user');
+const Comment = require('../models/comment');
 
 
 module.exports.toggleLike = async function(req, res){
@@ -35,17 +35,19 @@ module.exports.toggleLike = async function(req, res){
                 likeable: req.query.id,
                 onModel: req.query.type
             });
-            likeable.like.push(like._id);
+            likeable.likes.push(like._id);
             likeable.save();
 
         }
 
-        return res.json(200, {
-            message: 'Request Successful!',
-            data: {
-                deleted: deleted
-            }
-        });
+        if(req.xhr){
+            return res.json(200, {
+                message: 'Request Successful!',
+                data: {
+                    deleted: deleted
+                }
+            });
+        }
 
     } catch(err){
         console.log('Error', err);

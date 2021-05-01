@@ -16,5 +16,10 @@
     
     <p><%= profile_user.email%></p>
     <p><%= profile_user.name%></p>
+    <% if(isFriend) {%>
+        <button><a href="/friends/remove_friend/<%= profile_user._id %>">Remove Friend</a></button>
+    <%} else {%>
+        <button><a href="/friends/add_friend/<%= profile_user._id %>">Add Friend</a></button>
+    <%} %>
     
 <%}%>

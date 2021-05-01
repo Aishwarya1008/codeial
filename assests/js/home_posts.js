@@ -1,3 +1,4 @@
+
 {   
     // console.log('hello');
 
@@ -15,6 +16,7 @@
                 console.log(data);
                 let newPost = newPostDom(data.data.post);
                 $('#posts-list-container>ul').prepend(newPost);
+                new ToggleLike($(' .toggle-like-button', newPost));
                 new Noty({
                     theme: 'relax',
                     text: "Post published!",
@@ -38,6 +40,11 @@
             <span><a class="delete-post-button" href="/posts/destroy/${i._id}">X</a></span>
             <p>${i.content}</p>
             <span>${ i.user.name}</span>
+            <small>
+                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${ i._id }&type=Post">
+                    0Likes
+                </a>
+            </small>
         </div>
         <div class="post-comments">
                 <form action="/comments/create" method="POST">
@@ -85,19 +92,10 @@
     }
     convertPostsToAjax();
     deletePost();
-
-
-    let likeButtons = $('.like-button');
-    for(let i = 0; i<likeButtons.length; i++){
-        likeButtons.eq(i).on('click', function(event){
-            event.preventDefault();
-            let text = $(this).text();
-            if(text == 'Like'){
-                $(this).text('Unlike');
-            } else {
-                $(this).text('Like');
-            }
-        });
-    }
+    
+    $('.toggle-like-button').each(function(){
+        let self = $(this);
+        let toggleLike = new ToggleLike(self);
+    });
 
 }
