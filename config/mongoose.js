@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const environment = require('./environment');
 
-mongoose.connect('mongodb://localhost/codeial_development', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb://localhost/${environment.db}`, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

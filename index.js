@@ -14,6 +14,7 @@ const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const nodemailer = require('nodemailer');
+const environment = require('./config/environment');
 
 const app = express();
 
@@ -23,14 +24,14 @@ chatServer.listen(5000);
 console.log('chat server is working fine');
 
 app.use(sassMiddleware({
-    src: './assests/scss',
-    dest: './assests/css',
+    src: path.join(__dirname, environment.asset_path, 'scss'),
+    dest: path.join(__dirname, environment.asset_path, 'css'),
     debug: true,
     outputStyle: 'extended',
     prefix: '/css'
 }));
 
-app.use(express.static('./assests'));
+app.use(express.static(environment.asset_path));
 app.use('/uploads', express.static(__dirname + '/uploads'));
 // app.use(cookieParser());
 
@@ -45,7 +46,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(session({
     name: 'codeial',
-    secret:'somethingBlah',
+    secret: environment.session_cookie_key,
     resave: false,
     saveUninitialized: false,
     cookie: {

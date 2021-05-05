@@ -1,15 +1,17 @@
 const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const extractJWT = require('passport-jwt').ExtractJwt;
+const environment = require('./environment');
 
 const User = require('../models/user');
 
 let opts = {
     jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'codeial'
+    secretOrKey: environment.jwt_secret_key,
+    passReqToCallback: true
 }
 
-passport.use(new JWTStrategy(opts, function(jwtPayLoad, done){
+passport.use(new JWTStrategy(opts, function(req, jwtPayLoad, done){
 
     User.findById(jwtPayLoad._id, function(err, user){
         if(err){
